@@ -30,14 +30,14 @@ public class DefaultService {
     public Boolean isAppReady = false;
 
     public String hostname() {
-        String hostname = "";
-        InetAddress inetadd = null;
+        String hostname;
+        InetAddress inetAdd;
         try {
-            inetadd = InetAddress.getLocalHost();
+            inetAdd = InetAddress.getLocalHost();
         } catch(UnknownHostException e) {
             throw new RuntimeException(e);
         }
-        hostname = inetadd.getHostName();
+        hostname = inetAdd.getHostName();
         return hostname;
     }
 
@@ -45,7 +45,7 @@ public class DefaultService {
         if(type.equals("startup") || type.equals("liveness")) {
             log.info("[Kubernetes] {}Probe is {}-> [System] isAppLive: {}", type, isAppLive?"Succeed":"Failed", isAppLive);
             return isAppLive;
-        } else  {
+        } else {
             log.info("[Kubernetes] {}Probe is {}-> [System] isAppReady: {}", type, isAppReady?"Succeed":"Failed", isAppReady);
             return isAppReady;
         }
