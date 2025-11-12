@@ -1,11 +1,10 @@
 package com.app.service;
 
-import com.app.domain.DatasourceProperties;
 import com.app.component.CpuLoad;
 import com.app.component.ObjectForLeak;
+import com.app.domain.DatasourceProperties;
 import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,16 +17,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class DefaultService {
-    private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
-
     @Autowired
     private DatasourceProperties datasourceProperties;
 
-    public Boolean isAppLive = false;
+    private Boolean isAppLive = false;
 
-    public Boolean isAppReady = false;
+    private Boolean isAppReady = false;
+
+    public Boolean getAppLive() {
+        return isAppLive;
+    }
+
+    public Boolean getAppReady() {
+        return isAppReady;
+    }
+
+    public void setAppLive(Boolean appLive) {
+        isAppLive = appLive;
+    }
+
+    public void setAppReady(Boolean appReady) {
+        isAppReady = appReady;
+    }
 
     public String hostname() {
         String hostname;

@@ -2,8 +2,7 @@ package com.app.controller;
 
 import com.app.domain.DatasourceProperties;
 import com.app.service.DefaultService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -13,10 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 public class DefaultController {
-    private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
-
     @Autowired
     private DatasourceProperties datasourceProperties;
 
@@ -95,7 +93,7 @@ public class DefaultController {
     @GetMapping("/server-error")
     @ResponseBody
     public ResponseEntity<Object> serverError() {
-        defaultService.isAppLive = false;
+        defaultService.setAppLive(false);
         log.info("[SyStem] An error occurred on the server");
         return ResponseEntity.ok("ok");
     }
@@ -103,7 +101,7 @@ public class DefaultController {
     @GetMapping("/traffic-off")
     @ResponseBody
     public ResponseEntity<Object> trafficOff() {
-        defaultService.isAppReady = false;
+        defaultService.setAppReady(false);
         log.info("[SyStem] Traffic is forcibly stopped");
         return ResponseEntity.ok("ok");
     }
@@ -111,7 +109,7 @@ public class DefaultController {
     @GetMapping("/traffic-on")
     @ResponseBody
     public ResponseEntity<Object> trafficOn() {
-        defaultService.isAppReady = true;
+        defaultService.setAppReady(true);
         log.info("[SyStem] Traffic is reconnected");
         return ResponseEntity.ok("ok");
     }
@@ -119,8 +117,8 @@ public class DefaultController {
     @GetMapping("/server-load-on")
     @ResponseBody
     public ResponseEntity<Object> serverLoadOn() {
-        defaultService.isAppReady = false;
-        defaultService.isAppLive = false;
+        defaultService.setAppReady(false);
+        defaultService.setAppLive(false);
         log.info("[SyStem] The system load has occurred");
         return ResponseEntity.ok("ok");
     }
@@ -128,8 +126,8 @@ public class DefaultController {
     @GetMapping("/server-load-off")
     @ResponseBody
     public ResponseEntity<Object> serverLoadOff() {
-        defaultService.isAppReady = true;
-        defaultService.isAppLive = true;
+        defaultService.setAppReady(true);
+        defaultService.setAppLive(true);
         log.info("[SyStem] The System load has decreased");
         return ResponseEntity.ok("ok");
     }

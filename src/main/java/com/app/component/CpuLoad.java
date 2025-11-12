@@ -1,11 +1,9 @@
 package com.app.component;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class CpuLoad extends Thread  {
-    private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
-
     private final double load;
 
     private final long duration;
@@ -25,7 +23,7 @@ public class CpuLoad extends Thread  {
                 }
             }
         } catch(InterruptedException e) {
-            e.printStackTrace();
+            log.error("CpuLoad.run()");
         }
         log.info("{} : cpuLoad is done", this.getName());
     }

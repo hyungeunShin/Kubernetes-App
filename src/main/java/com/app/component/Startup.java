@@ -1,17 +1,15 @@
 package com.app.component;
 
 import com.app.service.DefaultService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class Startup implements ApplicationListener<ContextRefreshedEvent> {
-    private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
-
     @Autowired
     private DefaultService defaultService;
 
@@ -28,7 +26,7 @@ public class Startup implements ApplicationListener<ContextRefreshedEvent> {
             Thread.sleep(5 * 1000);
             log.info("[System] App is started");
             Thread.sleep(2 * 1000);
-            defaultService.isAppLive = true;
+            defaultService.setAppLive(true);
             Thread.sleep(5 * 1000);
             log.info("[System] ConfigMap data is loading..");
             Thread.sleep(5 * 1000);
@@ -38,7 +36,7 @@ public class Startup implements ApplicationListener<ContextRefreshedEvent> {
             Thread.sleep(5 * 1000);
             log.info("[System] Data loading is completed");
             Thread.sleep(2 * 1000);
-            defaultService.isAppReady = true;
+            defaultService.setAppReady(true);
         } catch(InterruptedException e) {
             throw new RuntimeException(e);
         }
