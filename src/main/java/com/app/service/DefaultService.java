@@ -43,10 +43,10 @@ public class DefaultService {
 
     public Boolean probeCheck(String type) {
         if(type.equals("startup") || type.equals("liveness")) {
-            log.info("[Kubernetes] {}Probe is {}-> [System] isAppLive: {}", type, isAppLive?"Succeed":"Failed", isAppLive);
+            log.info("[Kubernetes] {}Probe is {}-> [System] isAppLive: {}", type, isAppLive ? "Succeed" : "Failed", isAppLive);
             return isAppLive;
         } else {
-            log.info("[Kubernetes] {}Probe is {}-> [System] isAppReady: {}", type, isAppReady?"Succeed":"Failed", isAppReady);
+            log.info("[Kubernetes] {}Probe is {}-> [System] isAppReady: {}", type, isAppReady ? "Succeed" : "Failed", isAppReady);
             return isAppReady;
         }
     }
@@ -61,8 +61,8 @@ public class DefaultService {
     }
 
     public void cpuLoad(int min, int thread) {
-        final long duration = (long) min * 60 * 1000;  // 3분동안
-        double load = 0.8;  // 부하를 80%정도로 유지하도록 설정
+        final long duration = (long) min * 60 * 1000;  //3분동안
+        double load = 0.8;  //부하를 80%정도로 유지하도록 설정
 
         for(int cnt = 0; cnt < thread; cnt++) {
             String name = "Thread-" + cnt + "-" + this.hostname();
@@ -81,7 +81,7 @@ public class DefaultService {
         try {
             yamlFile = new FileReader(postgresqlFilepath);
         } catch(FileNotFoundException e) {
-
+            log.error("datasourceSecretLoad error");
         }
 
         if(yamlFile != null) {
@@ -109,7 +109,7 @@ public class DefaultService {
     }
 
     public String createFile(String path) {
-        // 10자리 임의 문자 만들기
+        //10자리 임의 문자 만들기
         String randomStr = "";
         for(int i = 0; i < 10; i++) {
             char sValue = (char) ((int) (Math.random() * 26) + 97);
@@ -117,13 +117,13 @@ public class DefaultService {
         }
         log.info("File created:{}", path);
 
-        // 폴더 생성
+        //폴더 생성
         File filePath = new File(path);
         if(!filePath.exists()) {
             filePath.mkdirs();
         }
 
-        // 문자로 파일명 생성
+        //문자로 파일명 생성
         String filename = path + randomStr + ".txt";
         File file = new File(filename);
         try {

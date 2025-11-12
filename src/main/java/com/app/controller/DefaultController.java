@@ -163,9 +163,9 @@ public class DefaultController {
                returnString += "<br><b>[Role] :</b> " + applicationRole + " (option: ALL, GET, POST, PUT, DELETE)";
                returnString += "<br><b>[Database]</b>"
                              + "<br>driver-class-name : " + datasourceProperties.getDriverClassName()
-                             + "<br>url : "  + datasourceProperties.getUrl()
-                             + "<br>username : "  + datasourceProperties.getUsername()
-                             + "<br>password : "  + datasourceProperties.getPassword();
+                             + "<br>url : " + datasourceProperties.getUrl()
+                             + "<br>username : " + datasourceProperties.getUsername()
+                             + "<br>password : " + datasourceProperties.getPassword();
         return ResponseEntity.ok(returnString);
     }
 
