@@ -4,8 +4,8 @@ import com.app.component.CpuLoad;
 import com.app.component.ObjectForLeak;
 import com.app.domain.DatasourceProperties;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.Yaml;
@@ -19,21 +19,13 @@ import java.util.Map;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class DefaultService {
-    @Autowired
-    private DatasourceProperties datasourceProperties;
+    private final DatasourceProperties datasourceProperties;
 
     private Boolean isAppLive = false;
 
     private Boolean isAppReady = false;
-
-    public Boolean getAppLive() {
-        return isAppLive;
-    }
-
-    public Boolean getAppReady() {
-        return isAppReady;
-    }
 
     public void setAppLive(Boolean appLive) {
         isAppLive = appLive;
@@ -111,31 +103,32 @@ public class DefaultService {
     public String listFiles(String path) {
         File file = new File(path);
         String[] files = file.list();
-        String filenameList = "";
+
         if(files == null) {
-            return filenameList;
+            return "";
         }
 
+        StringBuilder filenameList = new StringBuilder();
         for(String filename : files) {
-            filenameList = filename + " " +  filenameList;
+            filenameList.insert(0, filename + " ");
         }
-        return filenameList;
+        return filenameList.toString();
     }
 
     public String createFile(String path) {
-        //10자리 임의 문자 만들기
-        String randomStr = "";
-        for(int i = 0; i < 10; i++) {
-            char sValue = (char) ((int) (Math.random() * 26) + 97);
-            randomStr += String.valueOf(sValue);
-        }
-        log.info("File created:{}", path);
-
         //폴더 생성
         File filePath = new File(path);
         if(!filePath.exists()) {
             filePath.mkdirs();
         }
+
+        //10자리 임의 문자 만들기
+        StringBuilder randomStr = new StringBuilder();
+        for(int i = 0; i < 10; i++) {
+            char sValue = (char) ((int) (Math.random() * 26) + 97);
+            randomStr.append(sValue);
+        }
+        log.info("File created:{}", path);
 
         //문자로 파일명 생성
         String filename = path + randomStr + ".txt";
