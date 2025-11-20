@@ -18,9 +18,9 @@ downward:
   volume:
     filepath: "/usr/src/myapp/downward-api/"
   env:
-    pod-name: api-tester-3111-94485c47b-5xwsg
-    pod-ip: 20.10.10.1
-    node-name: test-node
+    pod-name:
+    pod-ip:
+    node-name:
 
 # kube-apiserver 정보 (Secret으로 주입)
 api-token:
