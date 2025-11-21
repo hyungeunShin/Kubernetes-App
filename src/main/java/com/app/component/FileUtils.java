@@ -34,7 +34,7 @@ public class FileUtils {
 
             //파일 쓰기 (파일이 이미 있으면 대체, 없으면 생성)
             Files.writeString(messagePath, message, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        } catch (IOException e) {
+        } catch(IOException e) {
             log.error("An error occurred while writing to the file: {}", e.getMessage());
         }
     }
